@@ -1,10 +1,11 @@
 FROM ubuntu:jammy
 
-RUN export DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Manila
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo 'root:root' | chpasswd
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
 RUN apt-get update
-RUN apt-get install -y systemd systemd-sysv dbus dbus-user-session openssh-server sudo wget
+RUN apt-get install -y systemd systemd-sysv dbus dbus-user-session openssh-server sudo wget tzdata
 RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes
 RUN apt-get purge apt-show-versions
 RUN rm /var/lib/apt/lists/*lz4
