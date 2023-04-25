@@ -1,5 +1,6 @@
 FROM ubuntu:jammy
 
+RUN export DEBIAN_FRONTEND=noninteractive
 RUN echo 'root:root' | chpasswd
 RUN printf '#!/bin/sh\nexit 0' > /usr/sbin/policy-rc.d
 RUN apt-get update
